@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    
+    var a = 10;
+}
+
+<h2>这是Show对应的方法视图</h2>
+<h2>@DateTime.Now</h2>
+<h2>@a</h2>
+
+@* 单行代码 ,多行代码块*@
+@{
+    @*var myMessge = "你好";
+        var content = DateTime.Now.TimeOfDay;
+        var result = myMessge + "现在是：" + content;
+        <font color="red">@result</font>
+        <font color="red">@myMessge</font>*@
+
+    @*var isOK = true;
+        if (isOK)
+        {
+            @:好！很好
+        }
+        else
+        {
+            @:错！错的离谱！
+        }*@
+
+}
+@*<font color="blue">@myMessge</font>*@
+@* for/foreach与html混合使用 *@
+@{
+    var list = new List<string>() { "张三", "李四", "王五" };
+}
+<ul>
+    <li><a href="#">张三</a></li>
+    <li><a href="#">李四</a></li>
+    <li><a href="#">王五</a></li>
+    <hr />
+    @for (int i = 0; i < list.Count; i++)
+    {
+        <li><a href="#">@list[i]</a></li>
+    }
+</ul>
+<ul>
+    @foreach (var item in list)
+    {
+        <li><a href="#">@item</a></li>
+    }
+</ul>
+@using T2_1.Models;
+@{ 
+    
+    List<Users> list1 = new List<Users>() { 
+       new Users(){UserName="admin1",Age=20,Email="aaa@163.com"},
+       new Users(){UserName="张三",Age=20,Email="aaa@163.com"}
+      
+    };
+}
+<table border="1">
+    <tr style="background-color:gray">
+        <th>用户名</th>
+        <th>年龄</th>
+        <th>邮箱</th>
+    </tr>
+    @foreach (var item in list1)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>@item.Age</td>
+            <td>@item.Email</td>
+        </tr>
+    }
+</table>
+

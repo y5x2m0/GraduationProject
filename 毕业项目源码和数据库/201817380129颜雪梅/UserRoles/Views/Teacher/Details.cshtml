@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using UserRoles.Models;
+@{
+    Teacher tea= ViewBag.tea;
+ }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>在线考试 - 教师信息详情</title>
+
+</head>    
+<body>
+    <div id="all">
+        <!--页眉-->
+        <!--老师登录-->
+        <div id="header">
+            <div id="logo"><span id="logotxt">在线全自动考试</span></div>
+            <div id="loginmsg">
+                <span> 胡瑶 老师您好, 欢迎光临在线全自动考试系统</span>
+                <a href="/Home/Logout">退出系统</a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="menu">
+           
+                <div style="clear:both;"></div>
+            
+        </div>
+
+        <div id="content">
+            <!--页面内容部分-->
+
+
+
+            <h2>教师信息详情</h2>
+
+            <div>
+                <h4>教师信息</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        姓名
+                    </dt>
+
+                    <dd>
+                        @tea.TeacherName
+                    </dd>
+
+                    <dt>
+                        登录名
+                    </dt>
+
+                    <dd>
+                        @tea.TeacherLoginName
+                    </dd>
+
+                    <dt>
+                        密码
+                    </dt>
+
+                    <dd>
+                        @tea.TeacherLoginPwd
+                    </dd>
+
+                    <dt>
+                        电话
+                    </dt>
+
+                    <dd>
+                        @tea.TeacherPhone
+                    </dd>
+
+                    <dt>
+                        Email
+                    </dt>
+
+                    <dd>
+                        @tea.TeacherEmail
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                <a href="/Teacher/Edit/@tea.TeacherID">编辑</a> |
+                <a href="/Teacher/Index">返回教师列表</a>
+            </p>
+
+            <!--页脚-->
+            <div id="footer">
+                <hr style="margin:20px 0px;" /> 在线全自动化考试   版权所有 - 2018
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

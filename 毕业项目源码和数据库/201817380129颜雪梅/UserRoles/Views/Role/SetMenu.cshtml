@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "SetMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using UserRoles.Models;
+
+@{
+    UserRoles.Models.Roles roles = ViewBag.roles;
+    List<R_Role_Menus> rRMList = ViewBag.rRMList;
+    List<Menus> MenusList = ViewBag.MenusList;
+}
+
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="/UserInfo/Index">角色管理</a></li>
+    <li class="active">设置菜单</li>
+</ul>
+<h2>正在为 @roles.Name 设置菜单</h2>
+<form action="" method="post">
+    @foreach (var menus in MenusList)
+    {
+        var Selected = false;
+
+        foreach (var rrm in rRMList)
+        {
+            if (roles.ID == rrm.RoleID && menus.ID == rrm.MenuID)
+            {
+                Selected = true;
+                break;
+            }
+
+        }
+        <input type="checkbox" value="@menus.ID" name="menus" id="menus" checked="@Selected" />
+        @menus.Name
+        <br />
+    }
+    <input type="hidden" value="@roles.ID" name="RoleID" />
+    <input type="submit" value="提交" class="btn btn-primary" />
+</form>

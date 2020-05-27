@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ExamDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StuID" />
+    </Key>
+    <Property Name="StuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StuName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="StuLoginName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="StuLoginPwd" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="StuSex" Type="bit" Nullable="false" />
+    <Property Name="StuPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="StuEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="StuGrade" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherID" />
+    </Key>
+    <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TeacherLoginName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TeacherLoginPwd" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TeacherPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="TeacherEmail" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="ExamDBModelStoreContainer">
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

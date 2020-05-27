@@ -1,0 +1,20 @@
+﻿@model List<T8_1.Models.Student>
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>姓名</th>
+        <th>登录名</th>
+        <th>密码</th>
+        <th>电话</th>
+        <th>Email</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StuName</td>
+            <td>@item.StuLoginName</td>
+            <td>@item.StuLoginPwd</td>
+            <td>@item.StuPhone</td>
+            <td>@item.StuEmail</td>
+        </tr>
+    }
+</table>

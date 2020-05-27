@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "AjaxLogin";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+<form action="/Home/AjaxLogin" method="post">
+    <input name="__RequestVerificationToken" type="hidden" value="ws30A1NW3DyoF9K4DCVCSWljHmbeeRoX-BB2HbZQ6jKz9F-VSl_4uSBBJipNomNOvEfv7D6soJ7osEzPFiL4YREC3h98ApoT8SPLVtzmn0s1" />    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuLoginName">登录名</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="登录名是必填项" id="StuLoginName" name="StuLoginName" type="text" value="" onblur="Check()" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="StuLoginName" data-valmsg-replace="true" id="validateLoginName"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuLoginPwd">密码</label>
+            <div class="col-md-10">
+                <input class="form-control" data-val="true" data-val-required="密码是必填项" id="StuLoginPwd" name="StuLoginPwd" type="password" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="StuLoginPwd" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=" 登录 " class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script type="text/javascript">
+        function Check() {
+            $.ajax({
+                type: "post",  //请求方式 ("POST" 或 "GET")
+                url:"@Url.Action("CheckLoginName","Home")",  //发送请求的地址
+                async: true, //是否异步请求
+                cache: true, //缓存
+                contentType: "application/x-www-form-urlencoded",  //发送信息至服务器时内容编码类型
+                beforeSend: function (ahr) {   //发送请求前处理的函数
+                },
+                data: {  //携带的参数
+                    "LoginName": $("#StuLoginName").val(),
+                    "LoginPwd": $("#StuLoginPwd").val()
+                },
+                dataType: "text",   //返回数据的格式
+                //dataFilter:function (data , type) {   //返回的原始数据的进行预处理的函数
+                //},
+                 complete: function (ahr, ts) {   //请求完成响应之后处理的函数
+                },
+                success: function (data) {  //请求成功后的回调函数
+                    alert(data);
+                    if (data == "true") {
+                        $("#validateLoginName").html("<font color='green'>用户存在，可登录！</font>");
+                        //$("#validateLoginPwd").html("<font color='green'>密码正确，可登录！</font>");
+                    } else {
+                        $("#validateLoginName").html("<font color='red'>用户不存在，请先注册！</font>");
+                        //$("#validateLoginPwd").html("<font color='red'>密码不存在，请先注册！</font>");
+                    }
+
+                },
+                error: function (ahr, em, tryThrows) {
+                    $("#validateLoginName").html("请求出现异常，很抱歉！");
+                    //请求失败时调用此函数
+                    //XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象
+                }
+
+            })
+        }
+    </script>
+}
+
+

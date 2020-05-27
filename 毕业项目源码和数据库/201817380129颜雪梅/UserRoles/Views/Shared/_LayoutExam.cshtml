@@ -1,0 +1,65 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>在线考试 - 首页</title>
+    @*@Styles.Render("/Content/Exam/css")*@
+
+    <link href="~/Content/Exam/css/global.css" rel="stylesheet" />
+    <link href="~/Content/Exam/css/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="all">
+        <!--页眉-->
+        <!--未登录-->
+        <div id="header">
+            <div id="logo"><span id="logotxt">在线全自动考试</span></div>
+            <div id="loginmsg">
+
+                @*<span> 胡瑶 老师您好, 欢迎光临在线全自动考试系统</span>
+                <a href="/Home/Logout">退出系统</a>*@
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="/Home/Index">首页</a></li>
+                <li><a href="/Teacher/Index">教师管理</a></li>
+                <li><a href="/Students/Index">学生管理</a></li>
+                <li><a href="/Papers1/Index">试卷管理</a></li>
+                <li><a href="/Answers/TeAnswer">审卷</a></li>
+                <li><a href="/Students/Details/1">我的资料</a></li>
+                <li><a href="/Papers1/IndexStu">在线考试</a></li>
+                <li><a href="/Answers/MyAnswer">我的考试</a></li>
+                <li><a href="/Home/About">关于</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+
+        </div>
+        <div id="content">
+            <!--页面内容部分-->
+            @RenderBody()
+
+
+            <h2>在线全自动考试</h2>
+
+            <div class="account">
+                <img src="/img/timg.jpg" alt="" width="740" height="350" />
+            </div>
+
+
+            <!--页脚-->
+            <div id="footer">
+                <hr style="margin:20px 0px;" /> 在线全自动化考试   版权所有 - 2018
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

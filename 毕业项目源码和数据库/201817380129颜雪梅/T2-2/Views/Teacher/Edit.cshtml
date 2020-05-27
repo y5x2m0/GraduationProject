@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>修改老师信息</h2>
+<form method="post" action="Edit">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Hidden("TeacherID")
+            @Html.TextBox("TeacherName", null, new { placeholder = "请输入姓名", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.TextBox("TeacherLoginName", null, new { placeholder = "请输入账号", @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.TextBox("TeacherLoginPwd", null, new { placeholder = "请输入密码", @class = "form-control",type = "password"})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.TextBox("TeacherPhone", null, new { placeholder = "请输入电话", @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.TextBox("TeacherEmail", null, new { placeholder = "请输入邮箱", @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="submit" value="提交" class="btn btn-primary form-control" />
+        </div>
+    </div>
+</form>
+

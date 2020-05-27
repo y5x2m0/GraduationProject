@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using UserRoles.Models
+<br />
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="/User/Index">用户管理</a></li>
+        <li>添加</li>
+    </ul>
+    <form action="/User/Add" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Name">姓名</label>
+            <input type="text" name="Name" id="Name" />
+        </div>
+        <div class="form-group">
+            <label for="DepartmentID">部门</label>
+            <select name="DepartmentID" id="DepartmentID">
+                @foreach (var item in ViewBag.Departments as List<Departments>)
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Sex">性别</label>
+            <input type="radio" name="Sex" id="Sex" value="true" checked />男
+            <input type="radio" name="Sex" id="Sex" value="false" />女
+        </div>
+        <div class="form-group">
+            <label for="Account">账号</label>
+            <input type="text" name="Account" id="Account" />
+        </div>
+        <div class="form-group">
+            <label for="roles">角色</label>
+            @foreach (var item in ViewBag.Roles as List<UserRoles.Models.Roles>)
+            {
+                <input type="checkbox" name="roles" id="roles" value="@item.ID" />@item.Name
+            }
+
+        </div>
+        <div class="form-group">
+            <label for="Pwd">密码</label>
+            <input type="password" name="Pwd" id="Pwd" />
+        </div>
+        <div class="form-group">
+            <label for="Photo">图片</label>
+            <input type="file" name="Photo" id="Photo" />
+        </div>
+        <div class="form-group">
+            <label for="Remark">备注</label>
+            <textarea rows="5" cols="50" name="Remark" class="form-control"></textarea>
+        </div>
+        <a href="Javascript:history.go(-1)" class="btn btn-primary">返回</a>
+       <input type="submit" value="保存" class="btn btn-primary"/>
+    </form>
+@*@using UserRoles.Models;
+@model List<Departments>
+<form action="/User/Add" method="post">
+    <label>姓名</label>
+    <input type="text" name="Name" class="form-control" />
+    <label>部门</label>
+    <select class="form-control" name="DepartmentID">
+        @foreach (var item in Model)
+        {
+            <option value="@item.ID">@item.Name</option>
+        }
+    </select>
+    <label>性别</label>
+    <input type="radio" name="Sex" value="True" />男
+    <input type="radio" name="Sex" value="False" />女<br />
+    <label>账号</label>
+    <input type="text" name="Account" class="form-control" />
+    <label>角色</label>
+    @foreach (var item in ViewBag.Roles as List<UserRoles.Models.Roles>)
+    {
+        <input type="checkbox" value="@item.ID" name="RoleID" />@item.Name
+    }</br>
+    <label>密码</label>
+    <input type="password" name="Pwd" class="form-control" />
+    <label>文件</label>
+    <input type="file" value="选择文件" name="Photo" />
+    <label>备注</label>
+    <input type="text" name="Remark" class="form-control" />
+    <a href="/User/Index" class="btn btn-primary">返回</a>
+    <input type="submit" value="保存" class="btn btn-primary" />
+</form>*@

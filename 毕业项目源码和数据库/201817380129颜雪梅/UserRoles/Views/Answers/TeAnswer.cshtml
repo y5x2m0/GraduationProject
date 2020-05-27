@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "TeAnswer";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+
+@using UserRoles.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    IPagedList<Answer> answersList = ViewBag.answersList;
+}
+    <link href="~/Content/Exam/css/page.css" rel="stylesheet" />
+<h2>审批试卷 </h2>
+
+<table class="table">
+    <tr>
+        <th>学生姓名</th>
+        <th>试卷</th>
+        <th>批卷</th>
+        <th>分数</th>
+        <th>操作</th>
+    </tr>
+
+    @foreach (var item in answersList.OrderByDescending(p => p.AnswerTime))
+    {
+        <tr>
+            <td>@item.Student.StuName</td>
+            <td>@item.Paper.PaperName</td>
+            <td>
+                @if (item.AnswerState == 0)
+                {
+                    @:考试中
+                }
+                else if (item.AnswerState == 1)
+                {
+                    @:未审批
+                }
+                else
+                {
+                    @:已审批
+                }
+            </td>
+            <td>@item.AnswerScore</td>
+            <td>
+                @if (item.AnswerState == 1)
+                {
+                    <a href="">审批</a>
+                }
+                else
+                {
+                    <a href="/Answers/TeAnswerDetail">查看详情</a>
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    每页 @answersList.PageSize 条记录，共 @answersList.PageCount 页，当前第 @answersList.PageNumber 页
+    @Html.PagedListPager(answersList, Page => Url.Action("TeAnswer", new { Page }))
+</div>

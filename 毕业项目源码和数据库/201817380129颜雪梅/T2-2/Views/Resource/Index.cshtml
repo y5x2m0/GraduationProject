@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>文件的上传</h2>
+@using (Html.BeginForm("Index", "Resource", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label>请上传文件：</label>
+    <input type="file" id="resourceFile" name="resourceFile" />
+    @*@Html.TextBox("resourceFile",null,new {type="file" })*@
+    <input type="submit" value="提交" />
+}
+<font color="red">@ViewBag.Message</font>
+@if (ViewBag.ImgName != null)
+{
+
+    <img src="~/UploadFile/@ViewBag.ImgName" alt="Alternate Text" />
+}
+
+

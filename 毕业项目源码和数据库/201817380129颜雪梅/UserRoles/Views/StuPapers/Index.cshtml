@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutsStu.cshtml";
+}
+@using UserRoles.Models;
+@model List<Paper>
+<h2>试卷列表</h2>
+<table class="table">
+    <tr>
+        <th>
+            试卷名
+        </th>
+        <th>
+            试卷说明
+        </th>
+        <th>
+            试卷时长
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.PaperName
+            </td>
+            <td>
+                @item.PaperExplain
+            </td>
+            <td>
+                @item.PaperTime
+            </td>
+            <td>
+               <a href="">开始做题</a>
+            </td>
+        </tr>
+    }
+</table>

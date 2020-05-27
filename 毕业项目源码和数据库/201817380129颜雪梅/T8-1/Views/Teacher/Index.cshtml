@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>老师信息</h2>
+@model List<T8_1.Models.Teacher>
+<div class="row">
+    <div class="col-lg-8">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add">
+            新增
+        </button>
+        <button type="button" class="btn btn-danger">批量删除</button>
+
+    </div>
+    @using (Ajax.BeginForm(new AjaxOptions()
+    {
+        Url = "/Teacher/Scerch",
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "searchresults",
+        LoadingElementId = "ajax-loader",
+        AllowCache = true
+    }))
+    {
+        <div class="col-lg-4 input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search">
+
+                </span>
+            </div>
+            <input type="text" name="tName" id="tName" placeholder="请输入老师的姓名模糊查询" />
+            <input type="submit" value="查询" class="btn btn-default" />
+        </div>
+    }
+</div>
+<img src="~/Content/Images/ajax-loader.gif" id="ajax-loader" style="display:none" />
+<div id="searchresults">
+    @if (Model.Count() == 0)
+    {
+        <span>暂无数据！</span>
+    }
+    else
+    {
+        <table class="table table-hover table-condensed">
+            <tr>
+                <th>姓名</th>
+                <th>登录名</th>
+                <th>密码</th>
+                <th>电话</th>
+                <th>Email</th>
+                <th>操作</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TeacherName</td>
+                    <td>@item.TeacherLoginName</td>
+                    <td>@item.TeacherLoginPwd</td>
+                    <td>@item.TeacherPhone</td>
+                    <td>@item.TeacherEmail</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" data-whatever="@item.TeacherID">编辑</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" data-whatever="@item.TeacherID">删除</button>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+
+</div>
+<!-- 新增老师模态框 -->
+<div class="modal fade" id="Add" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增</h4>
+
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Teacher/Add" id="AddTeacherForm">
+                    <div class="form-group">
+                        <label class="control-label">姓名：</label>
+                        <input type="text" name="TeacherName" class="form-control" />
+                        <label class="control-label">账号：</label>
+                        <input type="text" name="TeacherLoginName" class="form-control" />
+                        <label class="control-label">密码：</label>
+                        <input type="text" name="TeacherLoginPwd" class="form-control" />
+                        <label class="control-label">电话：</label>
+                        <input type="text" name="TeacherPhone" class="form-control" />
+                        <label class="control-label">Email：</label>
+                        <input type="text" name="TeacherEmail" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="addsubmit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑老师模态框 -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Teacher/Edit" id="EditTeacherForm">
+                    <input type="hidden" name="TeacherID"/>
+                    <div class="form-group">
+                        
+                        <label class="control-label">姓名：</label>
+                        <input type="text" name="TeacherName" class="form-control" />
+                        <label class="control-label">账号：</label>
+                        <input type="text" name="TeacherLoginName" class="form-control" />
+                        <label class="control-label">密码：</label>
+                        <input type="text" name="TeacherLoginPwd" class="form-control" />
+                        <label class="control-label">电话：</label>
+                        <input type="text" name="TeacherPhone" class="form-control" />
+                        <label class="control-label">Email：</label>
+                        <input type="text" name="TeacherEmail" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="Editsubmit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* 删除老师信息 *@
+
+<div class="modal fade" id="DeleteModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">删除</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    你确定删除吗？
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" value="teacherID" id="DeleteTeacher">确定删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        //修改
+         
+        //显示窗体时获得传递的参数teacherID
+        $('#EditModal').on('show.bs.modal',//监控模式框的状态为显示时触发
+            function (event) {   //event函数捕获的是触发模式显示的单击事件对象
+                var button = $(event.relatedTarget);   //捕获单击对象
+                var teacherID = button.data('whatever');   //获得单击对象标签上传递的参数
+                var model = $(this);
+                $.ajax({
+                    type: "post",
+                    url: "/Teacher/Detail",
+                    data: { tID: teacherID },
+                    dataType:"json",
+                    success: function (value) {
+                        console.log(value);
+                        console.log(value["TeacherName"]);
+                        model.find("[name='TeacherName']").val(value["TeacherName"]);
+                        model.find("[name='TeacherLoginName']").val(value["TeacherLoginName"]);
+                        model.find("[name='TeacherLoginPwd']").val(value["TeacherLoginPwd"]);
+                        model.find("[name='TeacherPhone']").val(value["TeacherPhone"]);
+                        model.find("[name='TeacherEmail']").val(value["TeacherEmail"]);
+                        model.find("[name='TeacherID']").val(value["TeacherID"]);
+                       
+                       
+                    }
+                })
+            });
+        $("#Editsubmit").click(function () {
+            $("#EditTeacherForm").submit();
+        })
+        $("#addsubmit").click(function () {
+            $("#AddTeacherForm").submit();
+        })
+        //显示窗体时获得传递的参数teacherID
+        $('#DeleteModal').on('show.bs.modal',//监控模式框的状态为显示时触发
+            function (event) {   //event函数捕获的是触发模式显示的单击事件对象
+                var button = $(event.relatedTarget);   //捕获单击对象
+                var teacherID = button.data('whatever');   //获得单击对象标签上传递的参数
+                $(this).find("#DeleteTeacher").val(teacherID);   //显示的模式框
+            });
+
+        //删除
+        $("#DeleteTeacher").click(function () {
+            var teaID = $(this).val();
+            $.ajax({
+                url: "/Teacher/Del",
+                type: "Post",
+                data: { tID: teaID },
+                success: function () {
+                    window.location.reload();
+                }
+            })
+        })
+
+    </script>
+
+}

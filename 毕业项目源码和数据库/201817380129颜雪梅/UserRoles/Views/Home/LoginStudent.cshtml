@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>在线考试 - 学生登录</title>
+
+    <!--导入项目所需的样式文件-->
+    <link href="~/Content/Exam/css/Site.css" rel="stylesheet" />
+    <link href="~/Content/Exam/css/global.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="all">
+        <!--页眉-->
+        <!--未登录-->
+        <div id="header">
+            <div id="logo"><span id="logotxt">在线全自动考试</span></div>
+            <div id="loginmsg">
+                <a href="/Home/LoginTeacher">老师登录</a>
+                <a href="/Home/LoginStudent">学生登录</a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="/Home/About">关于</a></li>
+                <li><a href="/Home/Index">首页</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+        </div>
+        <div id="content">
+            <!--页面内容部分-->
+
+
+            <h2>学生登录</h2>
+            <form action="/Home/LoginStudent" method="post">
+                <input name="__RequestVerificationToken" type="hidden" value="ws30A1NW3DyoF9K4DCVCSWljHmbeeRoX-BB2HbZQ6jKz9F-VSl_4uSBBJipNomNOvEfv7D6soJ7osEzPFiL4YREC3h98ApoT8SPLVtzmn0s1" />    <div class="form-horizontal">
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="StuLoginName">登录名</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-required="登录名是必填项" id="StuLoginName" name="StuLoginName" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="StuLoginName" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="StuLoginPwd">密码</label>
+                        <div class="col-md-10">
+                            <input class="form-control" data-val="true" data-val-required="密码是必填项" id="StuLoginPwd" name="StuLoginPwd" type="password" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="StuLoginPwd" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value=" 登录 " class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!--页脚-->
+            <div id="footer">
+                <hr style="margin:20px 0px;" /> 在线全自动化考试   版权所有 - 2018
+            </div>
+        </div>
+    </div>
+</body>
+</html>

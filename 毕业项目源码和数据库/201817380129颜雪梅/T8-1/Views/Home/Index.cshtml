@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>*@
+
+@*<div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+<div>
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#">
+                菜鸟教程
+            </a>
+        </li>
+        <li>
+            @Ajax.ActionLink("老师信息", "Show", "Teacher", new AjaxOptions()
+       {
+           Confirm = "你确定要搜索吗？",//发送请求前的确认框
+           HttpMethod = "post",//提交方式
+           InsertionMode = InsertionMode.Replace,//请求响应的数据以何种方式显，枚举类型Replaceq替换，InserBefore之前插入，InserAfter之后插入
+           UpdateTargetId = "home",//替换的位置id
+           //LoadingElementDuration=600,//设置请求数据过程中指定显示的标签持续的时长
+           LoadingElementId = "ajax-loader",//请求数据过程中指定显示的标签
+           //OnBegin = "OnBegin1",//更新页面之前，参数：1
+           //OnComplete = "OnComplete1",//响应数据之后但在更新页面之前，参数：2
+           //OnSuccess = "OnSuccess1",//数据加载成功时，页面也没更新，参数：3
+           //OnFailure = "OnFailure1",//数据加载失败是，页面也没更新，参数：3
+            AllowCache=true,//是否缓存
+       })
+        </li>
+        <li>
+            @Ajax.ActionLink("学生信息", "Show", "Student", new AjaxOptions()
+      {
+          Confirm = "你确定要搜索吗？",//发送请求前的确认框
+          HttpMethod = "post",//提交方式
+          InsertionMode = InsertionMode.Replace,//请求响应的数据以何种方式显，枚举类型Replaceq替换，InserBefore之前插入，InserAfter之后插入
+          UpdateTargetId = "home",//替换的位置id
+          //LoadingElementDuration=600,//设置请求数据过程中指定显示的标签持续的时长
+          LoadingElementId = "ajax-loader",//请求数据过程中指定显示的标签
+          //OnBegin = "OnBegin1",//更新页面之前，参数：1
+          //OnComplete = "OnComplete1",//响应数据之后但在更新页面之前，参数：2
+          //OnSuccess = "OnSuccess1",//数据加载成功时，页面也没更新，参数：3
+          //OnFailure = "OnFailure1",//数据加载失败是，页面也没更新，参数：3
+           AllowCache = true,//是否缓存
+      })
+        </li>
+
+    </ul>
+    <img src="~/Content/Images/ajax-loader.gif" id="ajax-loader" style="display:none;position:fixed;left:20%" />
+    <div id="myTabContent" class="tab-content table-bordered" style="border-top:0px">
+        <div class="tab-pane fade in active" id="home">
+            <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#myTab li").click(function () {
+                $(this).siblings().removeClass("active");//移除兄弟级的选中样式
+                $(this).addClass("active");//给当前点击的添加样式
+                var index = $("#myTab li").index(this);   //获取索引
+                        if (index == 0) {
+                            $("#home").html(" <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>")
+                        }
+
+            })
+        })
+        //function OnBegin1() {
+        //    alert("我进来OnBegin1事件中了！")
+        //}
+
+        //function OnComplete1() {
+        //    alert("我进来OnComplete1事件中了！")
+        //}
+
+        //function OnSuccess1() {
+        //    alert("我进来OnSuccess1事件中了！")
+        //}
+
+        //function OnFailure1() {
+        //    alert("我进来OnFailure1事件中了！")
+        //}
+
+    </script>
+
+}

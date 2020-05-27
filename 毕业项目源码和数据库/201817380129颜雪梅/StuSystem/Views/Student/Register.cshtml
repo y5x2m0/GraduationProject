@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+<style type="text/css">
+    label.error {
+        color: red;
+    }
+    input.error {
+        border: 1px solid red;
+    }
+   
+    .field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+</style>
+<h2>学生注册</h2>
+@*<form action="" onsubmit="return CheckStudent()"></form>*@
+@using (Html.BeginForm("Register", "Student", FormMethod.Post, new { @class = "form-horizontal", id = "RefisterForm", name = "RefisterForm" }))
+{
+    <div class="form-group">
+        <label for="Name" class=" control-label">姓名：</label>
+        @Html.TextBox("Name", null, new { @class = "form-control" })
+        @Html.ValidationMessage("Name","姓名为必填项")
+        @*<span id="NameMsg" style="color:red"></span>*@
+    </div>
+    <div class="form-group">
+        <label for="Password" class=" control-label">密码：</label>
+
+        @Html.Password("Password", null, new
+        {
+            @class = "form-control"@*, onblur = "CheckPwd()"*@})
+        @Html.ValidationMessage("Password")
+        @*<span id="Pwd1Msg" style="color:red"></span>*@
+    </div>
+    <div class="form-group">
+        <label for="Password2" class=" control-label">确认密码：</label>
+        @Html.Password("Password2", null, new { @class = "form-control" })
+        @Html.ValidationMessage("Password2")
+        @*<span id="Pwd2Msg" style="color:red"></span>*@
+    </div>
+    <div class="form-group">
+        <label for="Age" class=" control-label">年龄：</label>
+        @Html.TextBox("Age", null, new { @class = "form-control" })
+        @Html.ValidationMessage("Age")
+        @*<span id="AgeMsg" style="color:red"></span>*@
+    </div>
+    <div class="form-group">
+        <label for="Sex" class=" control-label">性别：</label>
+        @Html.RadioButton("Sex", '男', true) 男
+        @Html.RadioButton("Sex", '女') 女
+    </div>
+    <div class="form-group">
+        <label for="Grades" class=" control-label">班级：</label>
+        @Html.DropDownList("Grades", ViewBag.GradeItem as List<SelectListItem>, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Intro" class=" control-label">自我介绍：</label>
+        @Html.TextArea("Intro", "你真棒！", new { @class = "form-control" })
+        @Html.ValidationMessage("Intro")
+        @*<span id="IntroMsg" style="color:red"></span>*@
+    </div>
+    <div class="form-group">
+
+        @Html.CheckBox("Agreest")
+        <label for="Agreest" class=" control-label">已查看《学生注册须知》</label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="提交" class="btn btn-danger" />
+    </div>
+
+}
+@* 验证信息全部一块输出 *@
+@*@Html.ValidationSummary()*@
+@*@section scripts{
+    <script type="text/javascript">
+        $(function (){
+        //form表单验证
+            $("#RefisterForm").validate({
+            //设置验证的元素验证项
+            rules: {
+                Name: { required: true },
+                Password: { required: true, checkReg: true },
+                Password2: { required: true, equalTo: "#Password" },
+                Age: { required: true, range: [10, 30] },
+                Intro: { maxlength: 50 }
+                //对应的提示信息
+            }, messages: {
+                Name: { required: "姓名必填！" },
+                Password: { required: "密码必填！", checkReg: "输入有效的密码！6-12位字母数字" },
+                Password2: { required: "请再次输入密码！", equalTo: "两次输入密码不一致！" },
+                Age: { required: "年龄必填！", range: "年龄必须在10-30岁之间" },
+                Intro: { maxlength: "最多输入50个字！" }
+
+            }
+        })
+            })
+        $.validator.addMethod("checkReg", function (value, e) {
+            var regExp = /^[A-Za-z0-9]{6,12}$/;
+            return regExp.test(value);
+        })
+    </script>
+}*@
+
+
+@*@section scripts
+    {
+        <script type="text/javascript">
+
+            $(function () {
+                $("#RefisterForm").bind("submit", CheckStudent);
+                //给form表单绑定submit，执行CheckStudent函数
+                //CheckStudent函数在bind方法中做为参数对象调用，是回调函数，需省略（）
+            })
+            function CheckStudent() {
+                if (Password2() && CheckName()&& CheckAge()&&CheckIntro()) {
+                    return true;
+                }
+                else {
+
+                    return false;
+                }
+            }
+            //密码
+            function CheckPwd() {
+                var Password = $("#Password").val();
+                if (Password == "") {
+                    $("#Pwd1Msg").html("请输入密码！");
+                    /*$("#Password").focus();*///聚集焦点
+                    return false;
+                } else {
+                    var reg = /^[A-Za-z0-9]{6,12}$/;//6-12位字母数字
+                    if (reg.test(Password)) {       //test验证是否满足正则表达式格式
+                        $("#Pwd1Msg").html("");
+                        return true;
+                    } else {
+                        $("#Pwd1Msg").html("密码输入不符合要求，6-12位字母数字组成！");
+                       /* $("#Password").focus();*///聚集焦点
+                        return false;
+                    }
+
+                }
+            }
+            //确认密码
+            function CheckPwd2() {
+                CheckPwd();
+                var Password2 = $("#Password2").val();
+                var Password = $("#Password").val();
+                if (Password2 != Password) {
+                    $("#Pwd2Msg").html("两次的输入密码不一致！");
+                    /*$("#Password2").focus();*///聚集焦点
+                    return false;
+                } else {
+                    $("#Pwd2Msg").html("");
+                    return true;
+                }
+
+            }
+            //用户名
+            function CheckName() {
+                var name = $("#Name").val();
+                if (name == "") {
+                    $("#NameMsg").html("请输入姓名！");
+                   /* $("#Name").focus();*///聚集焦点
+                    return false;
+                } else {
+                    $("#NameMsg").html("");
+                    return true;
+                }
+            }
+
+            //年龄
+            function CheckAge() {
+                if ($("#Age").val() == "") {
+                    $("#AgeMsg").html("请输入年龄！");
+                    //$("#Age").focus();
+                    return false;
+
+                }
+                if ($("#Age").val() < 10 || $("#Age").val() > 30) {
+                    $("#AgeMsg").html("年龄取值范围10-30岁！");
+                    //$("#Age").focus();
+                    return false;
+                }
+                else $("#AgeMsg").html("");
+                return true;	// 验证通过
+            }
+
+            //自我介绍
+            function CheckIntro() {
+                var Intro = $("#Intro").val();
+                if (Intro.length > 50) {
+                    $("#IntroMsg").html("自我介绍长度不能超过五十字！")
+                    return false;
+                } else {
+                    $("#IntroMsg").html("")
+                    return true;
+                }
+            }
+        </script>
+    }*@

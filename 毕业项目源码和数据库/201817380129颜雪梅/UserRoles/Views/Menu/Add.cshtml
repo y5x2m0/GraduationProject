@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li><a href="">首页</a></li>
+    <li><a href="">菜单管理</a></li>
+    <li class="active">添加菜单</li>
+</ul>
+<h2>菜单添加</h2>
+<form action="/Menu/Add" method="post">
+    <label>名称:</label>
+    <input type="text" name="Name" class="form-control" />
+    <label>地址:</label>
+    <input type="text" name="Url" class="form-control" />
+
+    <label>Pid:</label>
+    <input type="text" name="Pid" class="form-control" />
+    <label>备注:</label>
+    <input type="text" name="Remark" class="form-control" />
+    <a href="javascript:history.back()" class="btn btn-info">返回</a>
+    <input type="submit" value="保存" class="btn btn-primary" />
+</form>

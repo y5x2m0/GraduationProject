@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li class="active">角色管理</li>
+</ul>
+
+@using UserRoles.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<UserRoles.Models.Roles>
+<div class="row">
+    <div class="col-lg-8">
+        <form action="/Role/Add" method="post" class="form-inline">
+            <label for="Name">角色名称：</label>
+            <input type="text" name="Name" id="Name" class="form-control" placeholder="请输入角色名称" />
+            <input type="text" name="Remark" id="Remark" class="form-control" placeholder="请输入备注" />
+            <input type="submit" value="新增" class="btn btn-primary" />
+        </form>
+    </div>
+    <div class="col-lg-4">
+        <form action="" method="post" class="form-inline">
+            <label for="department">角色名称：</label>
+            <input type="text" name="Name" id="Name" value="@ViewBag.Name" class="form-control" placeholder="请输入角色名称模糊查询" />
+            <input type="submit" value="查询" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover table-condensed table-striped">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>备注</th>
+        <th>拥有的用户</th>
+        <th>操作的菜单</th>
+        <th>设置菜单</th>
+        
+    </tr>
+    @* 循坏 *@
+    @foreach (var item in ViewData["list"] as List<UserRoles.Models.Roles>)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>@item.Remark</td>
+            <td>
+                @foreach (var i in item.R_User_Roles)
+                {
+                    <span>@i.UserInfos.Name  </span>
+                }
+            </td>
+            <td>
+                @foreach (var i in item.R_Role_Menus)
+                {
+                    @i.Menus.Name
+                    <a href="/Role/DelMenu?RMenuID=@i.ID" onclick="return confirm('确定删除 @item.Name 的 @i.Menus.Name 吗？')">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                    <br />
+                }
+            </td>
+            <td><a href="/Role/SetMenu?RoleID=@item.ID" class="btn btn-info">设置菜单</a>
+            <a href="/Role/Delete?ID=@item.ID" onclick="return confirm('您确认要删除 @item.Name 的这个角色信息吗？')" class="btn btn-danger">删除</a></td>
+        </tr>
+    }
+</table>
+
+<div>
+    每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
